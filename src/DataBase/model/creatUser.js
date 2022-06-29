@@ -79,6 +79,7 @@ useschema.methods.toJSON=function(){
   const userObject =  user.toObject()
     delete userObject.password
   delete userObject.token
+  delete userObject.avatar
   return userObject
 }
 // statics is use to findByCrenetials function can be accessible(for logging) A middleware
