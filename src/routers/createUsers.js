@@ -1,14 +1,12 @@
 const express =require('express')
 const sharp = require('sharp')
 const User =require('../DataBase/model/creatUser')
-const ReadComments = require('../DataBase/model/readComments')
 const auth = require('../middleware/Auth')
-const multer = require('multer')
-const { findOne } = require('../DataBase/model/readComments')
-const { message } = require('statuses')
+const Multer = require('multer')
+
 const router= new express.Router()
 
-const upload = multer({ 
+const upload = Multer({ 
 
 limits:{
   // fileSize:1000000,
