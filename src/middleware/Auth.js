@@ -5,7 +5,7 @@ const auth= async(req,res,next)=>{
 try{
     const headertoken = req.header('Authorization').replace('Bearer ','')
     console.log(headertoken)
-    const verifyJwt =  jwt.verify(headertoken,"moviebackheads")
+    const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
     const finduser= await createUsers.findOne({_id:verifyJwt._id , 'token.tokenid':headertoken})
     if(!finduser){

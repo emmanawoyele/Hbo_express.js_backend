@@ -2,7 +2,6 @@ const mongoose =require("mongoose")
  const validator = require('validator');
  const bcrypt = require('bcryptjs');
  const jwt = require('jsonwebtoken')
-const res = require("express/lib/response");
 const Comments = require("../model/readComments")
 
 
@@ -65,7 +64,7 @@ useschema.virtual('commentsRelationship',{
 useschema.methods.generateToken =async function(){
   console.log({this:this})
   const user =this
-const genToken = jwt.sign({_id:user._id.toString()},"moviebackheads")
+const genToken = jwt.sign({_id:user._id.toString()},process.env.JWT_ENV)
 
 user.token=user.token.concat({tokenid:genToken})
 await user.save()

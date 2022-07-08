@@ -1,7 +1,7 @@
 const ShufflArray = array => {
        
     let currentIndex= array.find((array)=>{
-      console.log({arrayfind:array})
+      
         return !array.official===false 
       })
       

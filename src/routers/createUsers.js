@@ -1,10 +1,13 @@
 const express =require('express')
+const sharp = require('sharp')
 const User =require('../DataBase/model/creatUser')
 const ReadComments = require('../DataBase/model/readComments')
 const auth = require('../middleware/Auth')
 const multer = require('multer')
 const { findOne } = require('../DataBase/model/readComments')
+const { message } = require('statuses')
 const router= new express.Router()
+
 const upload = multer({ 
 
 limits:{
@@ -12,7 +15,8 @@ limits:{
   
 },
 fileFilter(req, file, cb){
-  if(!file.originalname.match(/\.(jpg|png|pdf)$/)){
+ 
+  if(!file.originalname.match(/\.(jpg|jpeg|png|pdf)$/)){
 return cb(new Error("please upload file with jpg or png"))
 
   }
@@ -65,11 +69,11 @@ res.status(400).send('unable to log in')
   // }
 
   router.post('/create/profileimage',auth,upload.single('avatar'),async(req,res)=>{    
-
+const bufferImage = await sharp(req.file.buffer).resize({width:300,height:300}).jpeg().toBuffer()
 
     try{
 // req.user.avatar.concat({image:req.file.buffer})
-req.user.avatar=req.file.buffer
+req.user.avatar=bufferImage
   await req.user.save()
  res.send(req.user)
 
@@ -91,11 +95,10 @@ try{
  const getUser= await User.findById(id)
  if(!getUser ||!getUser.avatar){
 throw new Error()
-
  }
-res.set('Content-Type','application/pdf')
-res.send(getUser.avatar)
-}catch(e){
+res.set('Content-Type','image/jpeg')
+res.send(getUser.avatar)}
+catch(e){
 res.status(404)
 }
   })

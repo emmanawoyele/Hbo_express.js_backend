@@ -4,12 +4,10 @@ const multer  = require('multer')
 
 const auth =require('../middleware/Auth')
 const router = new express.Router()
-console.log("hehe")
+
 const upload = multer({ 
 
-    limits:{
-      fileSize:1000000,
-    },
+   
     fileFilter(req, file, cb){
       if(!file.originalname.match(/\.(jpg|png)$/)){
     return cb(new Error("please upload file with jpg or png"))
@@ -25,8 +23,8 @@ const upload = multer({
 
 
 router.post("/image",auth,upload.single('avatar') ,async (req,res)=>{
-   
-    const new_comment= new Images({image:req.file.buffer,OwnerId:req.user._id})
+   console.log(req)
+    const new_comment= new Images({image:req.user.image=req.file.buffer,OwnerId:req.user._id})
   
     try{
       await new_comment.save();
@@ -42,52 +40,52 @@ router.post("/image",auth,upload.single('avatar') ,async (req,res)=>{
   })
   
 
-  // router.get('/image/:id',auth,async(req,res)=>{
-  //  const a= await req.User.findOne({...req.params.id,OwnerId:req.user._id})
-  //   console.log(req.params.id)
-  //   res.send(a)
+  router.get('/image/:id',auth,async(req,res)=>{
+   const a= await req.User.findOne({...req.params.id,OwnerId:req.user._id})
+    console.log(req.params.id)
+    res.send(a)
 
-  // })
+  })
   
   
   // READ all comments
   
   
-//   router.get("/comment",auth, async(req,res)=>{  
+  router.get("/comment",auth, async(req,res)=>{  
   
-//     const sortdata={}
-//     if(req.query.sortBy){
+    const sortdata={}
+    if(req.query.sortBy){
     
-//       const parts = req.query.sortBy.split(":")
-//       console.log(parts)
-//       sortdata[parts[0]]=parts[1] ==='desc' ? -1 :1
-//       console.log(sortdata)
-//     } 
+      const parts = req.query.sortBy.split(":")
+      console.log(parts)
+      sortdata[parts[0]]=parts[1] ==='desc' ? -1 :1
+      console.log(sortdata)
+    } 
  
-//     try{
-//   // limit is use for pagination.limit helps us limit the number of request.
-//       const readusers= await ReadComments.find({ownerId:req.user._id}).limit(req.query.limit).skip(req.query.skip).sort(sortdata)
-//       res.status(201)
-//       res.send(readusers)
-//     }catch(e){res.status(404)
-//       res.send("There is no comments")}
+    try{
+  // limit is use for pagination.limit helps us limit the number of request.
+      const readusers= await ReadComments.find({ownerId:req.user._id}).limit(req.query.limit).skip(req.query.skip).sort(sortdata)
+      res.status(201)
+      res.send(readusers)
+    }catch(e){res.status(404)
+      res.send("There is no comments")}
   
-//   })
+  })
   
-//   // READ SINGLE
-//   router.get("/comment/:id",auth, async(req,res)=>{
-//     const _id = req.params.id
-// console.log({usr:req.user})
-//     try{
-//       const readusers= await ReadUser.findOne({_id,OwnerId:req.user._id})
-//       if(!readusers){
-//       res.status(404).send()
-//       }
-//       res.status(201).send(readusers)
-//     }catch(e){res.status(404)
-//       res.send("There is no comments")}
+  // READ SINGLE
+  router.get("/comment/:id",auth, async(req,res)=>{
+    const _id = req.params.id
+console.log({usr:req.user})
+    try{
+      const readusers= await ReadUser.findOne({_id,OwnerId:req.user._id})
+      if(!readusers){
+      res.status(404).send()
+      }
+      res.status(201).send(readusers)
+    }catch(e){res.status(404)
+      res.send("There is no comments")}
   
-//   })
+  })
   
   
   // UPDATE

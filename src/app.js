@@ -32,7 +32,7 @@ console.log(req.query)
       }else{
       
         videoTrending(response,(shuffeldCallback={})=>{
-          console.log(shuffeldCallback)
+          console.log({shuffeldCallback})
           res.send(shuffeldCallback)
         })
       }
@@ -44,8 +44,6 @@ console.log(req.query)
 app.listen(port,()=>{
     console.log(`Server listen on ${port}`)
 })
-const Task= require('./DataBase/model/readComments')
-const User = require('./DataBase/model/creatUser')
 
 // const multer=require('multer')
 // const upload = multer({dest:'images'})

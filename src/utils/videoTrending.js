@@ -18,8 +18,7 @@ const videoTrending=(key,callback)=>{
   const video=  key.forEach((key)=>{
 videoKey.push(key.id)
     })
-   console.log({video})
-   console.log({videoKey})
+
    // Shuffle array and return 1 item
   // function shuffle(array) {
     
@@ -50,15 +49,14 @@ videoKey.push(key.id)
   // }
 // 
    const shuffledKey=shuffleArray(videoKey)
-   console.log({shuffledKey})
  
-    // console.log({videoKey})
-    const videoTrendingurl =`https://api.themoviedb.org/3/movie/${shuffledKey}/videos?api_key=a5879fe83cace23de294d0b28bb346d5&language=en-US`
+console.log({shuffledKey})
+    const videoTrendingurl =`https://api.themoviedb.org/3/movie/${shuffledKey}/videos?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`
 request({url:videoTrendingurl,json:true},(error,response)=>{
 
   console.log({error})
-  console.log(response.body.results)
-  if(response.body.results.length===0||response.body.results==='undefined'){
+console.log({response:response.body})
+  if(response.body.results.length <=0||response.body.success==="false" ) {
     console.log({videoTredingurl:response.body.results})
 
     callback(Default)
