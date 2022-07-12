@@ -66,7 +66,8 @@ res.status(400).send('unable to log in')
   //   next()
   // }
 
-  router.post('/create/profileimage',auth,upload.single('avatar'),async(req,res)=>{    
+  router.post('/create/profileimage',auth,upload.single('avatar'),async(req,res)=>{  
+    console.log(bufferImage)  
 const bufferImage = await sharp(req.file.buffer).resize({width:300,height:300}).jpeg().toBuffer()
 
     try{

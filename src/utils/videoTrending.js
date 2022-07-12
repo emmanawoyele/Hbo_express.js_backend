@@ -2,6 +2,7 @@ const request = require("request")
 const shuffleArray = require('../utils/shuffleArray')
 
 const videoTrending=(key,callback)=>{
+  // console.log({key})
     let videoKey=[];
     const Default={
       iso_639_1: 'en',
@@ -15,6 +16,8 @@ const videoTrending=(key,callback)=>{
       published_at: '2021-12-13T21:54:56.000Z',
       id: '61b7d50b037264001cadc6e1'
     }
+
+
   const video=  key.forEach((key)=>{
 videoKey.push(key.id)
     })
@@ -54,18 +57,32 @@ console.log({shuffledKey})
     const videoTrendingurl =`https://api.themoviedb.org/3/movie/${shuffledKey}/videos?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`
 request({url:videoTrendingurl,json:true},(error,response)=>{
 
-  console.log({error})
-console.log({response:response.body})
-  if(response.body.results.length <=0||response.body.success==="false" ) {
-    console.log({videoTredingurl:response.body.results})
+try{
 
-    callback(Default)
-  }else{
-  
+  console.log({responseVideo:response.body})
+  console.log({responseVideo2:response.body.success})
+  debugger
+
+  // if(response.body.hasOwnProperty("result")||response.body===null ){}
+  if(response.body.results.length ===0 ) {
+    console.log("body is empty")
+   return callback(Default)
+  }
+else{
+    console.log({videoTredingurl:response.body.results})
     const shuffeldCallback=shuffleArray(response.body.results)
-debugger
+
 callback(shuffeldCallback)
   }
+
+}catch(e){
+if (response.body.success===false)
+
+return callback(Default)
+  
+
+}
+
 
 
 })
