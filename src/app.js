@@ -11,7 +11,7 @@ const useImagesRouter=require('./routers/imageRouters')
 const port=process.env.PORT || 3000
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin: true, credentials: true}));
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
