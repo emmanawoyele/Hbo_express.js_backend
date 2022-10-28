@@ -8,6 +8,7 @@ const ReadUser =require('./DataBase/model/readComments')
 const useCreateUserRouter=require('./routers/createUsers')
 const useCommentsRouter=require('./routers/comments')
 const useImagesRouter=require('./routers/imageRouters')
+const useMovieWishList=require('./routers/MovieWishList')
 const port=process.env.PORT || 3000
 
 app.use(express.json())
@@ -15,7 +16,7 @@ app.use(cors({origin: true, credentials: true}));
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
-
+app.use(useMovieWishList)
 
 app.get("/",(req,res)=>{
 console.log(req.query)

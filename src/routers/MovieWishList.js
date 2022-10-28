@@ -1,0 +1,48 @@
+const express =require('express')
+const auth = require('../middleware/Auth')
+const MovielistDb = require('../DataBase/model/wishlistModel')
+const { findById } = require('../DataBase/model/wishlistModel')
+const router= new express.Router()
+
+
+router.post("/movie",auth,async(req, res)=>{
+
+    const movieList = await new MovielistDb({...req.body,OwnerId:req.user._id})
+
+
+
+    try{
+    const find_Movie_Id =await MovielistDb.checkdoublemovies({req:req.body,OwnerId:req.user._id})
+  await movieList .save();
+      return res.status(201).send(movieList)
+    }catch(e){
+    
+res.status(400)
+res.send("Movie already existed.Check your libabry")
+    }
+
+
+})
+
+
+router.delete("/movie/wishlist/:id",auth, async(req, res)=>{
+
+  const _id =req.params.id
+
+  console.log({_id})
+  try{
+   const users=await MovielistDb.findByIdAndDelete({_id})
+   console.log(users)
+   if(users!==null){
+    return res.status(200).send(users)
+   }else{
+   return res.status(404).send("No movie found")
+   }
+   
+    
+  }catch(e){
+    res.status(500)
+    res.send()
+  }
+  })
+module.exports= router
