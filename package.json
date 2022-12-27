@@ -25,5 +25,10 @@
   "devDependencies": {
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.15"
-  }
+  },
+  
+    "engines": {
+      "node": "= 16.x"
+    }
+  
 }

@@ -59,58 +59,7 @@ useschema.statics.checkdoublemovies=async(data,OwnerId)=>{
         throw new Error("Double movies")
       }
      })
-    //  for(var i=0 ; i<movies.length;i++){
-    //   console.log(movies.length)
-  
-    //   console.log({datacomingfromdata:data.req.mediaId})
-    //  if( !movies.mediaId.includes(data.req.mediaId)===true){
-    
-    //   return movies[i]
-      
-    //  }else{
-    //   console.log("coorect")
-    //   throw new Error("Double movies")
-      
-     
-    //  }
-    //  }
-  //  if(movies.mediaId.includes(data.mediaId)===false){
-  // return movies
-  //  }
-    //  for(var i = 0 ; i< movies.length;i++ ){
-    //   if(movies[i].mediaId.includes(data.mediaId)===true){
-    //     console.log(movies[i].mediaId)
-    //   }
-
-    //  }
-      
-      // if(movies.includes(!movies.mediaId=== true)){
-      //    console.log(movies.mediaId)
-      //   return null
-      // } else{
-      //   console.log({de:movies})
-      //   return movies
-      // }
-      // return movies
-//       movies.forEach((movies)=>{
-// console.log(movies.mediaId)
-//       })
-      // movies.filter((movies)=>{
-      //   if(movies.mediaId!==movies.mediaId){
-      //     return movies.mediaId
-      //   }
-  
-      // console.log({movies})
-
-      // })
-
-  // if(!movies ){
-  //  throw new Error("Double movie can't be added")
-  // }
-  // const isMatched = await bcrypt.compare(password,user.password)
-  // if(!isMatched){
-  //   throw new Error("Unable to log in")
-  // }
+   
 
   }
 

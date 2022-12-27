@@ -4,7 +4,7 @@ const MovielistDb = require('../DataBase/model/wishlistModel')
 const { findById } = require('../DataBase/model/wishlistModel')
 const router= new express.Router()
 
-
+// add new movies
 router.post("/movie",auth,async(req, res)=>{
 
     const movieList = await new MovielistDb({...req.body,OwnerId:req.user._id})
@@ -24,7 +24,14 @@ res.send("Movie already existed.Check your libabry")
 
 })
 
+// get list of added movies
+router.get("/movie/wishlist",auth, async(req, res)=>{
+  console.log(req)
+  const readusers= await MovielistDb.find({ownerId:req.user._id})
+  console.log(readusers)
 
+})
+// delete movies
 router.delete("/movie/wishlist/:id",auth, async(req, res)=>{
 
   const _id =req.params.id

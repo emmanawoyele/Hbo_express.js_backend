@@ -5,7 +5,7 @@ const mongoose =require("mongoose")
 const Comments = require("../model/readComments")
 
 
- const useschema= new mongoose.Schema({
+ const useschema = new mongoose.Schema({
   name:{
       type:String,
       trim:true
@@ -15,18 +15,18 @@ const Comments = require("../model/readComments")
     required:true,
     trim:true
 },
-  email:{
-      type:String,
-      unique: true,
-      lowercase:true,
-      required:true,
-      trim:true,
-      validate(value){
-    if(!validator.isEmail(value)){
-        throw new Error('Email is not valid')
-    }
-      },
-  },
+email:{
+  type:String,
+  unique:true,
+  required:true,
+  trim:true,
+  validate(value){
+      if(!validator.isEmail(value)){
+          throw new Error('Email is not valid')
+      }
+  }
+
+},
   password:{
     type:String,
     required:true,

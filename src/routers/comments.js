@@ -1,6 +1,5 @@
 const express = require("express")
 const ReadComments = require("../DataBase/model/readComments")
-const Readcomments=require("../DataBase/model/readComments")
 const auth =require('../middleware/Auth')
 const router = new express.Router()
 
@@ -8,12 +7,13 @@ const router = new express.Router()
 
 
 router.post("/comment",auth,async (req,res)=>{
-const comment = new ReadComments()
  
 
-    const new_comment= new Readcomments({...req.body,OwnerId:req.user._id})
+    const new_comment=new ReadComments({...req.body,
+      OwnerId:req.user._id})
     try{
       await new_comment.save();
+      console.log(new_comment)
       res.status(201).send(new_comment)
     }catch(e){
   res.status(404).send("enter the correct information")
@@ -35,19 +35,20 @@ const comment = new ReadComments()
   
   
   router.get("/comment",auth, async(req,res)=>{  
-  
+
     const sortdata={}
     if(req.query.sortBy){
     
       const parts = req.query.sortBy.split(":")
       console.log(parts)
       sortdata[parts[0]]=parts[1] ==='desc' ? -1 :1
-      console.log(sortdata)
+      console.log({sortdata})
     } 
  
     try{
   // limit is use for pagination.limit helps us limit the number of request.
-      const readusers= await ReadComments.find({ownerId:req.user._id}).limit(req.query.limit).skip(req.query.skip).sort(sortdata)
+      const readusers= await ReadComments.find({ownerId:req.user._id})
+      // .limit(req.query.limit).skip(req.query.skip).sort(sortdata)
       res.status(201)
       res.send(readusers)
     }catch(e){res.status(404)
