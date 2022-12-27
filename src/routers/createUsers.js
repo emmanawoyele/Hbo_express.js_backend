@@ -26,7 +26,7 @@ return cb(new Error("please upload file with jpg or png"))
 
 // create user account
 router.post("/create",async (req,res)=>{
-
+console.log(req)
     const createNewUser= new User(req.body)
     try{
       await createNewUser.save()

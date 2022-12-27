@@ -10,10 +10,13 @@ const useCommentsRouter=require('./routers/comments')
 const useImagesRouter=require('./routers/imageRouters')
 const useMovieWishList=require('./routers/MovieWishList')
 const port=process.env.PORT || 5000
-
+var corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true
+}
 app.use(express.json())
-app.use(cors({origin: '*', credentials: true, 
-}));
+app.use(cors(corsOptions));
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
