@@ -1,3 +1,4 @@
-const mongoose = require("mongoose");
- mongoose.connect(process.env.MONGODB_ENV);
+mongoose = require("mongoose");
+const mongooseConnect = mongoose.connect(process.env.MONGODB_ENV);
   
+//  module.exports= mongooseConnect
