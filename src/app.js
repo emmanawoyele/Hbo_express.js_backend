@@ -1,5 +1,6 @@
-const mongoseConnect =require('./DataBase/mongoose')
-mongoseConnect()
+// const mongoseConnect =require('./DataBase/mongoose')
+mongoose = require("mongoose");
+ mongoose.connect(process.env.MONGODB_ENV);
 const express = require("express")
 const app= express()
 var cors = require('cors')
