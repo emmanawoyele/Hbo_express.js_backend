@@ -1,8 +1,8 @@
-// const mongoseConnect =require('./DataBase/mongoose')
-mongoose = require("mongoose");
- mongoose.connect(process.env.MONGODB_ENV);
+const mongoseConnect =require('./DataBase/mongoose')
+
 const express = require("express")
 const app= express()
+const port=process.env.PORT || 3000
 var cors = require('cors')
 const trending_all_day =require("./utils/TrendingAll_Day")
 const videoTrending = require("./utils/videoTrending")
@@ -11,11 +11,20 @@ const useCreateUserRouter=require('./routers/createUsers')
 const useCommentsRouter=require('./routers/comments')
 const useImagesRouter=require('./routers/imageRouters')
 const useMovieWishList=require('./routers/MovieWishList')
-const port=process.env.PORT || 3000
+
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true
+}
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 }
 app.use(express.json())
 app.use(cors(corsOptions)); 
@@ -49,9 +58,14 @@ console.log(req.query)
  
 })
 
-app.listen(port,()=>{
+connectDB().then(() => {
+  app.listen(PORT, () => {
     console.log(`Server listen on ${port}`)
+  })
 })
+// app.listen(port,()=>{
+//     console.log(`Server listen on ${port}`)
+// })
 
 // const multer=require('multer')
 // const upload = multer({dest:'images'})
