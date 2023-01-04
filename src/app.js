@@ -59,7 +59,7 @@ console.log(req.query)
 })
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  app.listen(port, () => {
     console.log(`Server listen on ${port}`)
   })
 })
