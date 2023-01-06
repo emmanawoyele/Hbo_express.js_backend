@@ -26,9 +26,10 @@ res.send("Movie already existed.Check your libabry")
 
 // get list of added movies
 router.get("/movie/wishlist",auth, async(req, res)=>{
-  console.log(req)
-  const readusers= await MovielistDb.find({ownerId:req.user._id})
-  console.log(readusers)
+  console.log({dbresults:res})
+  const usersMovies= await MovielistDb.find({ownerId:req.user._id})
+  res.send(usersMovies)
+  
 
 })
 // delete movies
