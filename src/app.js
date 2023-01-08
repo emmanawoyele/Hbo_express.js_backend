@@ -13,7 +13,7 @@ const useImagesRouter=require('./routers/imageRouters')
 const useMovieWishList=require('./routers/MovieWishList')
 
 var corsOptions = {
-  origin: 'https://crowded-turtleneck-eel.cyclic.app',
+  origin: '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true
 }
