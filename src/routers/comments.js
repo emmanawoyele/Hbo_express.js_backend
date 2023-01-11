@@ -47,8 +47,9 @@ router.post("/comment",auth,async (req,res)=>{
  
     try{
   // limit is use for pagination.limit helps us limit the number of request.
-      const readusers= await ReadComments.find({ownerId:req.user._id})
+      const readusers= await ReadComments.find({OwnerId:req.user._id})
       // .limit(req.query.limit).skip(req.query.skip).sort(sortdata)
+      console.log(readusers)
       res.status(201)
       res.send(readusers)
     }catch(e){res.status(404)

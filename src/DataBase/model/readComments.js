@@ -9,7 +9,7 @@ const useschema= new mongoose.Schema({
     OwnerId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:'Useraccount'
+        ref:'UserProfile'
     }
 },{
     timestamps:true

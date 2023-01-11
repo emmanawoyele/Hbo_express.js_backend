@@ -38,7 +38,7 @@ type:{
 },   OwnerId:{
   type:mongoose.Schema.Types.ObjectId,
   required:true,
-  ref:'Useraccount'
+  ref:'UserProfile'
 }
  },{timestamps:true})
  // statics is use to findByCrenetials function can be accessible(for logging) A middleware
