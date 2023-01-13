@@ -49,8 +49,8 @@ try{
 const user =  await User.findByCrendetials(req.body.email,req.body.password)
 const token = await user.generateToken()
 
-res.status(201)
-  return res.send({user,token})
+
+  return res.status(201).send({user,token})
 }catch(e){
   console.log(e)
 res.status(400).send('unable to log in')
@@ -108,7 +108,7 @@ res.status(404)
   router.delete('/create/me/profileimage',auth,async(req,res)=>{
     req.user.avatar =undefined
     await req.user.save()
-       res.send(" Image delete")
+       res.status(200).send(" Image delete")
 
    }
 )
