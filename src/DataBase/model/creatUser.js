@@ -65,7 +65,6 @@ useschema.methods.generateToken =async function(){
   console.log({this:this})
   const user =this
 const genToken = jwt.sign({_id:user._id.toString()},process.env.JWT_ENV)
-
 user.token=user.token.concat({tokenid:genToken})
 await user.save()
 return genToken

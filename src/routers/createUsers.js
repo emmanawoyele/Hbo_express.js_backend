@@ -33,7 +33,7 @@ console.log(req)
       await createNewUser.save()
     const token = await createNewUser.generateToken()
    res.status(201)
-   res.send(createNewUser)
+   res.send(createNewUser,token)
     }catch(e){
      res.status(400)
      res.send(e)
@@ -44,6 +44,7 @@ console.log(req)
    })
   //  login
   router.post("/create/login",async(req ,res)=>{
+    
 try{
 const user =  await User.findByCrendetials(req.body.email,req.body.password)
 const token = await user.generateToken()
