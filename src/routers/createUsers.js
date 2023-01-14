@@ -142,7 +142,7 @@ res.status(404)
           try{
             req.user.token=req.user.token.filter((token)=>{
               console.log(token)
-              const returnedToken =token.token!==req.token
+              const returnedToken =token.tokenid!==req.token
             return   returnedToken
             })
             
@@ -150,7 +150,7 @@ res.status(404)
             await req.user.save()
           res.send()
           }catch(e){
-            res.status(500)
+            res.status(500).send()
 
           }
       //     try{
