@@ -2,7 +2,7 @@ const mongoseConnect =require('./DataBase/mongoose')
 
 const express = require("express")
 const app= express()
-const port=process.env.PORT || 9000
+const port=process.env.PORT || 3000
 var cors = require('cors')
 const trending_all_day =require("./utils/TrendingAll_Day")
 const videoTrending = require("./utils/videoTrending")

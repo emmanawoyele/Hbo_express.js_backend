@@ -32,11 +32,9 @@ console.log(req)
     try{
       await createNewUser.save()
     const token = await createNewUser.generateToken()
-   res.status(201)
-   res.send(createNewUser,token)
+   res.status(201).send(createNewUser)
     }catch(e){
-     res.status(400)
-     res.send(e)
+     res.status(400).send(e)
     }
    
    
@@ -50,7 +48,7 @@ const user =  await User.findByCrendetials(req.body.email,req.body.password)
 const token = await user.generateToken()
 
 
-  return res.status(201).send({user,token})
+  return res.status(200).send({user,token})
 }catch(e){
   console.log(e)
 res.status(400).send('unable to log in')
@@ -108,7 +106,7 @@ res.status(404)
   router.delete('/create/me/profileimage',auth,async(req,res)=>{
     req.user.avatar =undefined
     await req.user.save()
-       res.status(200).send(" Image delete")
+       res.send(" Image delete")
 
    }
 )
