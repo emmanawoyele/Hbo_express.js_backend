@@ -42,13 +42,15 @@ console.log(req)
    })
   //  login
   router.post("/create/login",async(req ,res)=>{
+    const data = req.boody
+    
     
 try{
-const user =  await User.findByCrendetials(req.body.email,req.body.password)
+const user =  await User.findByCrendetials(req ,req.body.password)
 const token = await user.generateToken()
 
 
-  return res.status(200).send({user,token})
+  return res.status(201).send({user,token})
 }catch(e){
   console.log(e)
 res.status(400).send('unable to log in')
@@ -142,10 +144,9 @@ res.status(404)
           try{
             req.user.token=req.user.token.filter((token)=>{
               console.log(token)
-              const returnedToken =token.tokenid!==req.token
+              const returnedToken =token.token!==req.token
             return   returnedToken
             })
-            
             
             await req.user.save()
           res.send()
