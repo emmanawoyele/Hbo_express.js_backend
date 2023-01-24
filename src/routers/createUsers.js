@@ -50,7 +50,7 @@ const user =  await User.findByCrendetials(req ,req.body.password)
 const token = await user.generateToken()
 
 
-  return res.status(201).send({user,token})
+  return res.status(200).send({user,token})
 }catch(e){
   console.log(e)
 res.status(400).send('unable to log in')
