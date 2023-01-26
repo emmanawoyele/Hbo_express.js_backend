@@ -11,7 +11,7 @@ router.post("/comment",auth,async (req,res)=>{
 
     const new_comment=new ReadComments({...req.body,
       OwnerId:req.user._id})
-      console.log(req)
+      console.log(req.body)
     try{
       await new_comment.save();
       console.log(new_comment)
