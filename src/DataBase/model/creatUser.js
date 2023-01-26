@@ -85,22 +85,19 @@ useschema.statics.findByCrendetials=async(data,password)=>{
 
 
 let user;
-
-if(data.body.email){
-  user =await User.findOne({email:data.body.email})
+let emailOrUsername =data.body.email;
+if(data.body.email ||data.body.username){
+  user =await User.findOne({$or:[{email:emailOrUsername},{username:emailOrUsername}]})
 return user
 
-}else if(data.body.username){
-  user =await User.findOne({username:data.body.username})
-  return user
 }
 
 if(!user){
- throw new Error("Unable to log in")
+ throw new Error("Check Your Uswername or Password")
 }
 const isMatched = await bcrypt.compare(password,user.password)
 if(!isMatched){
-  throw new Error("Unable to log in")
+  throw new Error("Check Your Uswername or Password")
 }
 
 return user
