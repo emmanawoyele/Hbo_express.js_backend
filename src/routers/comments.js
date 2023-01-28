@@ -35,28 +35,40 @@ router.post("/comment",auth,async (req,res)=>{
   // READ all comments
   
   
-  router.get("/comment",auth, async(req,res)=>{  
+  router.get("/comment", auth, async (req, res) => {
+    res.set({
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
 
-    const sortdata={}
-    if(req.query.sortBy){
-    
-      const parts = req.query.sortBy.split(":")
-      console.log(parts)
-      sortdata[parts[0]]=parts[1] ==='desc' ? -1 :1
-      console.log({sortdata})
-    } 
- 
-    try{
-  // limit is use for pagination.limit helps us limit the number of request.
-      const readusers= await ReadComments.find({OwnerId:req.user._id})
-      // .limit(req.query.limit).skip(req.query.skip).sort(sortdata)
-      console.log(readusers)
-      res.status(201)
-      res.send(readusers)
-    }catch(e){res.status(404)
-      res.send("There is no comments")}
-  
-  })
+    const sortdata = {}
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(":")
+        sortdata[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    }
+
+    try {
+        const readusers = await ReadComments.find({OwnerId: req.user._id});
+
+        // send the initial data to the client
+        res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+
+        // set up an interval to send updates to the client
+        const intervalId = setInterval(async() => {
+            const updatedData = await ReadComments.find({OwnerId: req.user._id});
+            res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
+        }, 3000);
+
+        // when the client closes the connection, clear the interval
+        req.on("close", () => {
+            clearInterval(intervalId);
+        });
+    } catch (e) {
+        res.status(404).send("There is no comments");
+    }
+});
+
   
   // READ SINGLE
   router.get("/comment/:id",auth, async(req,res)=>{
