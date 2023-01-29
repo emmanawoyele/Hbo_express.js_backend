@@ -3,8 +3,8 @@ const ReadComments = require("../DataBase/model/readComments")
 const auth =require('../middleware/Auth')
 const router = new express.Router()
 
-// CREATE
 
+// CREATE
 
 router.post("/comment",auth,async (req,res)=>{
  
@@ -35,43 +35,80 @@ router.post("/comment",auth,async (req,res)=>{
   // READ all comments
   
   
-  router.get("/comment", auth, async (req, res) => {
-    // res.set({
-    //     'Content-Type': 'text/event-stream',
-    //     'Cache-Control': 'no-cache',
-    //     'Connection': 'keep-alive'
-    // });
+//   router.get("/comment", auth, async (req, res) => {
+//     // res.set({
+//     //     'Content-Type': 'text/event-stream',
+//     //     'Cache-Control': 'no-cache',
+//     //     'Connection': 'keep-alive'
+//     // });
 
-    const sortdata = {}
-    if (req.query.sortBy) {
-        const parts = req.query.sortBy.split(":")
-        sortdata[parts[0]] = parts[1] === 'desc' ? -1 : 1
-    }
+//     const sortdata = {}
+//     if (req.query.sortBy) {
+//         const parts = req.query.sortBy.split(":")
+//         sortdata[parts[0]] = parts[1] === 'desc' ? -1 : 1
+//     }
 
-    try {
-        const readusers = await ReadComments.find({OwnerId: req.user._id});
-        if(!readusers){
-         res.status(404)
-        }else{
-          res.status(201).send(readusers)
-        }
+//     try {
+//         const readusers = await ReadComments.find({OwnerId: req.user._id});
+//         if(!readusers){
+//          res.status(404)
+//         }else{
+//           res.status(201).send(readusers)
+//         }
  
-        // send the initial data to the client
-        // res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+//         // send the initial data to the client
+//         // res.write(`data: ${JSON.stringify(readusers)}\n\n`);
 
-        // set up an interval to send updates to the client
-        // const intervalId = setInterval(async() => {
-        //     const updatedData = await ReadComments.find({OwnerId: req.user._id});
-        //     res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
-        // }, 3000);
+//         // set up an interval to send updates to the client
+//         // const intervalId = setInterval(async() => {
+//         //     const updatedData = await ReadComments.find({OwnerId: req.user._id});
+//         //     res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
+//         // }, 3000);
 
-        // when the client closes the connection, clear the interval
-        // req.on("close", () => {
-        //     clearInterval(intervalId);
-        // });
-    } catch (e) {
-        res.status(404).send("There is no comments");
+//         // when the client closes the connection, clear the interval
+//         // req.on("close", () => {
+//         //     clearInterval(intervalId);
+//         // });
+//     } catch (e) {
+//         res.status(404).send("There is no comments");
+//     }
+// });
+
+router.get("/comment", auth, async (req, res) => {
+  res.set({
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+
+  const sortdata = {}
+  if (req.query.sortBy) {
+    const parts = req.query.sortBy.split(":")
+    sortdata[parts[0]] = parts[1] === 'desc' ? -1 : 1
+  }
+
+  try {
+    const readusers = await ReadComments.find({OwnerId: req.user._id});
+    if (!readusers) {
+      res.status(404)
+    } else {
+      // send the initial data to the client
+      res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+
+      // set up an interval to send updates to the client
+      const intervalId = setInterval(async() => {
+        const updatedData = await ReadComments.find({OwnerId: req.user._id});
+        res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
+      }, 3000);
+
+      // when the client closes the connection, clear the interval
+      req.on("close", () => {
+        clearInterval(intervalId);
+      });
     }
+  } catch (e) {
+    res.status(404).send("There is no comments");
+  }
 });
 
   
