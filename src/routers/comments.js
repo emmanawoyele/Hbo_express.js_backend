@@ -36,11 +36,11 @@ router.post("/comment",auth,async (req,res)=>{
   
   
   router.get("/comment", auth, async (req, res) => {
-    res.set({
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
-    });
+    // res.set({
+    //     'Content-Type': 'text/event-stream',
+    //     'Cache-Control': 'no-cache',
+    //     'Connection': 'keep-alive'
+    // });
 
     const sortdata = {}
     if (req.query.sortBy) {
