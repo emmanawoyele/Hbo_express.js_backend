@@ -93,18 +93,19 @@ router.get("/comment", auth, async (req, res) => {
       res.status(404)
     } else {
       // send the initial data to the client
-      res.send(`data: ${readusers}\n\n`);
+      res.status(201).send(readusers)
+      // (`data: ${JSON.stringify(readusers)}\n\n`);
 
       // set up an interval to send updates to the client
-      const intervalId = setInterval(async() => {
-        const updatedData = await ReadComments.find({OwnerId: req.user._id});
-        res.send(`data: ${updatedData }\n\n`);
-      }, 3000);
+      // const intervalId = setInterval(async() => {
+      //   const updatedData = await ReadComments.find({OwnerId: req.user._id});
+      //   res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
+      // }, 3000);
 
       // when the client closes the connection, clear the interval
-      req.on("close", () => {
-        clearInterval(intervalId);
-      });
+      // req.on("close", () => {
+      //   clearInterval(intervalId);
+      // });
     }
   } catch (e) {
     res.status(404).send("There is no comments");
