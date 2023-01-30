@@ -6,6 +6,14 @@ const useschema= new mongoose.Schema({
         required:true,
         trim:true
     },
+    Title:{
+        type:String,
+        trim:true
+
+    },
+    movieId:{
+        type:Number
+    },
     OwnerId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,

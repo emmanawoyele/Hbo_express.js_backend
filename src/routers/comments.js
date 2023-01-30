@@ -75,11 +75,11 @@ router.post("/comment",auth,async (req,res)=>{
 // });
 
 router.get("/comment", auth, async (req, res) => {
-  res.set({
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
-  });
+  // res.set({
+  //   'Content-Type': 'text/event-stream',
+  //   'Cache-Control': 'no-cache',
+  //   'Connection': 'keep-alive'
+  // });
 
   const sortdata = {}
   if (req.query.sortBy) {
@@ -88,7 +88,7 @@ router.get("/comment", auth, async (req, res) => {
   }
 
   try {
-    const readusers = await ReadComments.find({OwnerId: req.user._id});
+    const readusers = await ReadComments.find();
     if (!readusers) {
       res.status(404)
     } else {
