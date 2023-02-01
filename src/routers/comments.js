@@ -78,7 +78,7 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 router.get("/comment", auth, async (req, res) => {
-    console.log(req.headers.authorization);
+    console.log({rice:req.headers.authorization});
   res.set({
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
