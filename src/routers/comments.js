@@ -75,47 +75,40 @@ router.post("/comment",auth,async (req,res)=>{
 //     }
 // });
 
-router.get("/comment:id", auth, async (req, res) => {
-  console.log(req.params)
+
+
+router.get("/comment", auth, async (req, res) => {
   res.set({
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
   });
-  res.flushHeaders()
-
-  
-
-  const sortdata = {}
-  if (req.query.sortBy) {
-    const parts = req.query.sortBy.split(":")
-    sortdata[parts[0]] = parts[1] === 'desc' ? -1 : 1
-  }
 
   try {
-    const readusers = await ReadComments.find();
+    const readusers = await ReadComments.find({});
     if (!readusers) {
-      res.status(404)
-    } else {
-      // send the initial data to the client
-      // res.status(201).send(readusers)
-      (`data: ${JSON.stringify(readusers)}\n\n`);
-
-      // set up an interval to send updates to the client
-      const intervalId = setInterval(async() => {
-        // const updatedData = await ReadComments.find({OwnerId: req.user._id});
-        res.write(`data: ${JSON.stringify(readusers)}\n\n`);
-      }, 3000);
-
-      // when the client closes the connection, clear the interval
-      req.on("close", () => {
-        clearInterval(intervalId);
-      });
+      return res.status(404).send("No comments found");
     }
-  } catch (e) {
-    res.status(404).send("There is no comments");
+
+    // Send the initial data to the client
+    res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+
+    // Set up an interval to send updates to the client
+    const intervalId = setInterval(async () => {
+      const updatedData = await ReadComments.find({});
+      res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
+    }, 3000);
+
+    // When the client closes the connection, clear the interval
+    req.on("close", () => {
+      clearInterval(intervalId);
+    });
+  } catch (error) {
+    return res.status(500).send(error.message);
   }
 });
+
+
 
   
   // READ SINGLE
