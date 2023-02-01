@@ -2,6 +2,7 @@ const express = require("express")
 const ReadComments = require("../DataBase/model/readComments")
 const auth =require('../middleware/Auth')
 const router = new express.Router()
+const fs = require('fs');
 
 
 // CREATE
@@ -75,11 +76,14 @@ router.post("/comment",auth,async (req,res)=>{
 // });
 
 router.get("/comment", auth, async (req, res) => {
-  // res.set({
-  //   'Content-Type': 'text/event-stream',
-  //   'Cache-Control': 'no-cache',
-  //   'Connection': 'keep-alive'
-  // });
+  res.set({
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+  res.flushHeaders()
+
+  
 
   const sortdata = {}
   if (req.query.sortBy) {
@@ -93,19 +97,19 @@ router.get("/comment", auth, async (req, res) => {
       res.status(404)
     } else {
       // send the initial data to the client
-      res.status(201).send(readusers)
-      // (`data: ${JSON.stringify(readusers)}\n\n`);
+      // res.status(201).send(readusers)
+      (`data: ${JSON.stringify(readusers)}\n\n`);
 
       // set up an interval to send updates to the client
-      // const intervalId = setInterval(async() => {
-      //   const updatedData = await ReadComments.find({OwnerId: req.user._id});
-      //   res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
-      // }, 3000);
+      const intervalId = setInterval(async() => {
+        // const updatedData = await ReadComments.find({OwnerId: req.user._id});
+        res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+      }, 3000);
 
       // when the client closes the connection, clear the interval
-      // req.on("close", () => {
-      //   clearInterval(intervalId);
-      // });
+      req.on("close", () => {
+        clearInterval(intervalId);
+      });
     }
   } catch (e) {
     res.status(404).send("There is no comments");
