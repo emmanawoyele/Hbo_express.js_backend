@@ -76,7 +76,7 @@ router.post("/comment",auth,async (req,res)=>{
 // });
 
 router.get("/comment:id", auth, async (req, res) => {
-  console.log(req.query)
+  console.log(req.params)
   res.set({
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
