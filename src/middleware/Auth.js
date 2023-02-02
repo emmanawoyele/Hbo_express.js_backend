@@ -6,7 +6,8 @@ const auth= async(req,res,next)=>{
 
 try{
     if (typeof headertoken === "undefined"){
-        headertoken =req.query.replace(":","")
+        console.log({long:req.query.token})
+        headertoken =req.query.token
            console.log({see: headertoken})
                 
             }else{
