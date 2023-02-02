@@ -2,10 +2,20 @@
 const jwt = require('jsonwebtoken')
 const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
+    let headertoken = req.header('Authorization')
+
 // in try catch, if there is no header with auth, use req.query coming fron the client
 // turn the query into array by using Object keys and extract the first array
 try{
-    let headertoken = req.header('Authorization').replace('Bearer ','')   
+    if (typeof headertoken !== "undefined"){
+  headertoken.replace('Bearer ','')
+     
+            }else{ 
+      let requestQuery=`${Object.keys(req.query)[0]}`;
+        headertoken =requestQuery
+         
+            }
+          
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
     const finduser= await createUsers.findOne({_id:verifyJwt._id , 'token.tokenid':headertoken})
@@ -22,5 +32,6 @@ try{
 
 
 }
+
 
 module.exports=auth
