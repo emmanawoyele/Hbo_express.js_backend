@@ -4,7 +4,10 @@ const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
     console.log(req.query)
 try{
-    const headertoken = req.header('Authorization').replace('Bearer ','')||req.query
+    let headertoken = req.header('Authorization').replace('Bearer ','')
+    if(headertoken ==='undefined'){
+        headertoken=req.query
+    }
     console.log(headertoken)
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
