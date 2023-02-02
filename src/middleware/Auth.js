@@ -6,9 +6,11 @@ const auth= async(req,res,next)=>{
 // in try catch, if there is no header with auth, use req.query coming fron the client
 // turn the query into array by using Object keys and extract the first array
 try{
-     headertoken = req.header('Authorization').replace('Bearer ','')   
-    if(typeof headertoken ==="undefined"){
+ 
+    if(typeof req.header==="undefined"){
        return headertoken=`${Object.keys(req.query)[0]}`;
+    }else{
+        headertoken =req.header('Authorization').replace('Bearer ','')
     }
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
