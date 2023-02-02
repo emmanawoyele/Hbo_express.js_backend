@@ -5,7 +5,7 @@ const auth= async(req,res,next)=>{
     let headertoken = req.header('Authorization')
 
 try{
-    if(typeOf(headertoken) ==="undefined"){
+    if(typeof headertoken ==="undefined"){
         headertoken =req.query.replace(":","")
            console.log({see: headertoken})
                 
