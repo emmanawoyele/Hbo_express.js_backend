@@ -2,9 +2,12 @@
 const jwt = require('jsonwebtoken')
 const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
-    console.log({kiss:req})
+    console.log({kiss:req.query})
 try{
     const headertoken = req.header('Authorization').replace('Bearer ','')
+    if(!header){
+const head = req.query
+    }
     console.log(headertoken)
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
