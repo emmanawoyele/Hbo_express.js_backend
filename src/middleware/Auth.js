@@ -4,7 +4,7 @@ const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
     let headertoken = req.header('Authorization')
     if(typeOf(headertoken) ==="undefined"){
-headertoken =req.query.replace(':','')
+headertoken =req.query
    console.log({see: headertoken})
         
     }else{
