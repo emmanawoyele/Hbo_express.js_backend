@@ -3,12 +3,16 @@ const jwt = require('jsonwebtoken')
 const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
     console.log(req.query)
-try{
-    let headertoken = req.header('Authorization').replace('Bearer ','')
-    if(headertoken ==='undefined'){
-        headertoken=req.query
+    let headertoken =req.header('Authorization')
+
+    if(headertoken){
+        headertoken.replace('Bearer ','')
+    }else{
+        headertoken =req.query
     }
-    console.log(headertoken)
+try{
+    // const headertoken = req.header('Authorization')
+    // console.log(headertoken)
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     console.log(verifyJwt)
     const finduser= await createUsers.findOne({_id:verifyJwt._id , 'token.tokenid':headertoken})
