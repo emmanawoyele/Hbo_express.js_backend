@@ -80,7 +80,8 @@ router.post("/comment",auth,async (req,res)=>{
 
 router.get("/comment", auth, async (req, res) => {  
   res.set({
-    
+    "Access-Control-Allow-Origin": `https://hbomax-clone-iota.vercel.app/${req.query.token}`,
+  
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
