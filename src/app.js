@@ -26,7 +26,11 @@ const connectDB = async () => {
     process.exit(1);
   }
 }
-app.use(cors({ origin: '*'}))
+app.use(cors({
+  origin: 'https://hbomax-clone-iota.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
