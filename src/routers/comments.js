@@ -8,7 +8,7 @@ const fs = require('fs');
 // CREATE
 
 router.post("/comment",auth,async (req,res)=>{
-  res.setHeader('Access-Control-Allow-Origin', 'https://hbomax-clone-iota.vercel.app');
+ 
 
     const new_comment=new ReadComments({...req.body,
       OwnerId:req.user._id})
@@ -79,6 +79,7 @@ router.post("/comment",auth,async (req,res)=>{
 
 router.get("/comment", auth, async (req, res) => {
     // console.log({rice:req.headers.authorization});
+    res.setHeader('Access-Control-Allow-Origin', 'https://hbomax-clone-iota.vercel.app');
   res.set({
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
