@@ -6,6 +6,7 @@ const auth= async(req,res,next)=>{
 // in try catch, if there is no header with auth, use req.query coming fron the client
 // turn the query into array by using Object keys and extract the first array
 try{
+    console.log({iyannibabbso:req})
  
     if(typeof req.header('Authorization')==="undefined"){
   
