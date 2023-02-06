@@ -2,17 +2,16 @@
 const jwt = require('jsonwebtoken')
 const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
-    console.log(req)
     let headertoken;
 // in try catch, if there is no header with auth, use req.query coming fron the client
 // turn the query into array by using Object keys and extract the first array
 try{
  
     if(typeof req.header('Authorization')==="undefined"){
-        console.log(req.query)
-       headertoken = req.query.token 
+  
+       headertoken = await req.query.token 
     }else if( req.header("Authorization")){
-       headertoken = req.header("Authorization").replace('Bearer ','')
+       headertoken = await req.header("Authorization").replace('Bearer ','')
     }
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     const finduser= await createUsers.findOne({_id:verifyJwt._id , 'token.tokenid':headertoken})
@@ -22,7 +21,7 @@ try{
     req.user=finduser
     next()
 }catch(e){
-    console.log(e)
+   
     res.status(401).send("incorrect Auth")
 }
 
