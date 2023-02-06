@@ -2,7 +2,7 @@ const mongoseConnect =require('./DataBase/mongoose')
 
 const express = require("express")
 const app= express()
-const port=process.env.PORT || 3000
+const port=process.env.PORT || 8000
 var cors = require('cors')
 const trending_all_day =require("./utils/TrendingAll_Day")
 const videoTrending = require("./utils/videoTrending")
@@ -26,7 +26,7 @@ const connectDB = async () => {
     process.exit(1);
   }
 }
-app.use(cors({ origin: 'https://hbomax-clone-iota.vercel.app/'}))
+app.use(cors({ origin: '*'}))
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
