@@ -3,6 +3,7 @@ const ReadComments = require("../DataBase/model/readComments")
 const auth =require('../middleware/Auth')
 const router = new express.Router()
 const fs = require('fs');
+var cors = require('cors')
 
 
 // CREATE
@@ -77,11 +78,10 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 
-router.get("/comment", auth, async (req, res) => {
-    // console.log({rice:req.headers.authorization});
-    
+router.get("/comment",cors(), auth, async (req, res) => {  
   res.set({
     "Access-Control-Allow-Origin": "https://hbomax-clone-iota.vercel.app",
+    "Access-Control-Allow-Headers": "Authorization",
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
