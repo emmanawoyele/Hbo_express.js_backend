@@ -9,6 +9,7 @@ const auth= async(req,res,next)=>{
 try{
  
     if(typeof req.header('Authorization')==="undefined"){
+        console.log(req.query)
        headertoken = req.query.token 
     }else if( req.header("Authorization")){
        headertoken = req.header("Authorization").replace('Bearer ','')
