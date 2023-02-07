@@ -81,7 +81,7 @@ router.post("/comment",auth,async (req,res)=>{
 router.get("/comment", auth, async (req, res) => {  
   res.set({
 
-   "origin": '*',
+    "Access-Control-Allow-Origin": "*",
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
