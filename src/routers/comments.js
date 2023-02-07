@@ -88,8 +88,8 @@ router.get("/comment", auth, async (req, res) => {
   });
 
   try {
-    const readusers = await ReadComments.find({});
-    if (!readusers) {
+    const readUsersComments = await ReadComments.find({});
+    if (!readUsersComments) {
       return res.status(404).send("No comments found");
     }
 
@@ -107,7 +107,7 @@ router.get("/comment", auth, async (req, res) => {
       clearInterval(intervalId);
     });
   } catch (error) {
-    return res.status(500).send(error.message);
+    return res.status(500).send({error:error.message});
   }
 });
 
