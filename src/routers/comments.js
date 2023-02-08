@@ -78,7 +78,7 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 
-router.get("/comment", auth, async (req, res) => {  
+router.get("/comment", cors(), auth, async (req, res) => {  
 // res.set({
    
 //     "Content-Type": "text/event-stream",
