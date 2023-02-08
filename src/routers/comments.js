@@ -79,13 +79,16 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 router.get("/comment", auth, async (req, res) => {  
-res.set({
+// res.set({
    
-    "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
-    "Connection": "keep-alive",
+//     "Content-Type": "text/event-stream",
+//     "Cache-Control": "no-cache",
+//     "Connection": "keep-alive",
 
-  });
+//   });
+  res.setHeader("Content-Type", "text/event-stream",)
+  res.setHeader("Access-Control-Allow-Origin-", "*",)
+
 
   try {
     const readUsersComments = await ReadComments.find({});
