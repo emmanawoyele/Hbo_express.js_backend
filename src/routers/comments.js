@@ -78,16 +78,13 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 
-router.get("/comment", cors(), auth, async (req, res) => {  
-// res.set({
-   
-//     "Content-Type": "text/event-stream",
-//     "Cache-Control": "no-cache",
-//     "Connection": "keep-alive",
+router.get("/comment", auth, async (req, res) => {  
+res.set({
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
 
-//   });
-  res.setHeader("Content-Type", "text/event-stream",)
-  res.setHeader("Access-Control-Allow-Origin-", "*",)
+  });
 
 
   try {

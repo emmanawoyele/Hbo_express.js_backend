@@ -19,7 +19,6 @@ const useMovieWishList=require('./routers/MovieWishList')
 // }
 
 app.use(cors());
-
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_ENV);
