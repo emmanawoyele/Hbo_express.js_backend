@@ -7,12 +7,11 @@ const auth= async(req,res,next)=>{
 // turn the query into array by using Object keys and extract the first array
 try{
     console.log({iyannibabbso:req})
- 
     if(typeof req.header('Authorization')==="undefined"){
-  
-       headertoken = await req.query.token 
+       headertoken =  req.query.token 
+       console.log(req.query.token)
     }else if( req.header("Authorization")){
-       headertoken = await req.header("Authorization").replace('Bearer ','')
+       headertoken =  req.header("Authorization").replace('Bearer ','')
     }
     const verifyJwt =  jwt.verify(headertoken,process.env.JWT_ENV)
     const finduser= await createUsers.findOne({_id:verifyJwt._id , 'token.tokenid':headertoken})

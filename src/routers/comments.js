@@ -80,8 +80,6 @@ router.post("/comment",auth,async (req,res)=>{
 
 router.get("/comment", auth, async (req, res) => {  
   res.set({
-
-    "Access-Control-Allow-Origin": "*",
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
@@ -92,9 +90,10 @@ router.get("/comment", auth, async (req, res) => {
     if (!readUsersComments) {
       return res.status(404).send("No comments found");
     }
+    console.log({ert:readUsersComments})
 
     // Send the initial data to the client
-    res.write(`data: ${JSON.stringify(readusers)}\n\n`);
+    res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
 
     // Set up an interval to send updates to the client
     const intervalId = setInterval(async () => {
