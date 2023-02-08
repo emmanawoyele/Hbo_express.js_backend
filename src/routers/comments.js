@@ -83,6 +83,7 @@ router.get("/comment", auth, async (req, res) => {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
+    "allowedHeaders": "text/event-stream",
   });
 
   try {
