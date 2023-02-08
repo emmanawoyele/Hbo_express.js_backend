@@ -3,7 +3,7 @@ const mongoseConnect =require('./DataBase/mongoose')
 const express = require("express")
 const app= express()
 const port=process.env.PORT || 8000
-var cors = require('cors')
+const cors = require('cors')
 const trending_all_day =require("./utils/TrendingAll_Day")
 const videoTrending = require("./utils/videoTrending")
 const ReadUser =require('./DataBase/model/readComments')
@@ -17,6 +17,15 @@ const useMovieWishList=require('./routers/MovieWishList')
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 //   credentials: true
 // }
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  // allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'text/event-stream'],
+ 
+}));
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_ENV);
@@ -26,12 +35,7 @@ const connectDB = async () => {
     process.exit(1);
   }
 }
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  // allowedHeaders: ['Content-Type', 'Authorization'],
- 
-}));
+
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
