@@ -18,12 +18,8 @@ const useMovieWishList=require('./routers/MovieWishList')
 //   credentials: true
 // }
 
-app.use(cors({
-  origin: 'https://crowded-turtleneck-eel.cyclic.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
- 
-}));
+app.use(cors());
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_ENV);
