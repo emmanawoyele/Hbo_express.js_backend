@@ -19,7 +19,7 @@ const useMovieWishList=require('./routers/MovieWishList')
 // }
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://crowded-turtleneck-eel.cyclic.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
  
