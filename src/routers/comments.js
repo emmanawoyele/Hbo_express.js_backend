@@ -101,7 +101,7 @@ res.set({
     const intervalId = setInterval(async () => {
       const updatedData = await ReadComments.find({});
       res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
-    }, 4000);
+    }, 2000);
 
     // When the client closes the connection, clear the interval
     req.on("close", () => {
