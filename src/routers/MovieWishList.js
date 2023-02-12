@@ -7,12 +7,9 @@ const router= new express.Router()
 // add new movies
 router.post("/movie",auth,async(req, res)=>{
 
-    const movieList = await new MovielistDb({...req.body,OwnerId:req.user._id})
-
-
 
     try{
-    const find_Movie_Id =await MovielistDb.checkdoublemovies({req:req.body,OwnerId:req.user._id})
+    const movieList=await MovielistDb.checkdoublemovies({req:req.body,OwnerId:req.user._id})
   await movieList .save();
       return res.status(201).send(movieList)
     }catch(e){
@@ -26,7 +23,6 @@ res.send("Movie already existed.Check your libabry")
 
 // get list of added movies
 router.get("/movie/wishlist",auth, async(req, res)=>{
-  console.log({dbresults:res})
   const usersMovies= await MovielistDb.find({OwnerId:req.user._id})
   res.send(usersMovies)
   
