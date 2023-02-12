@@ -95,7 +95,7 @@ res.set({
     console.log({ert:readUsersComments})
 
     // Send the initial data to the client
-    res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
+    res.send(`data: ${JSON.stringify(readUsersComments)}\n\n`);
 
     // Set up an interval to send updates to the client
     const intervalId = setInterval(async () => {
