@@ -92,10 +92,9 @@ res.set({
     if (!readUsersComments) {
       return res.status(404).send("No comments found");
     }
-    console.log({ert:readUsersComments})
 
     // Send the initial data to the client
-    res.send(`data: ${JSON.stringify(readUsersComments)}\n\n`);
+    res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
 
     // Set up an interval to send updates to the client
     const intervalId = setInterval(async () => {
@@ -108,7 +107,7 @@ res.set({
       clearInterval(intervalId);
     });
   }catch (error) {
-    console.log({error})
+  
     return res.status(500).send({error:error.message});
   }
 });
