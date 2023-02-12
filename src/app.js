@@ -18,7 +18,7 @@ const useMovieWishList=require('./routers/MovieWishList')
 //   credentials: true
 // }
 
-app.use(cors());
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_ENV);
@@ -28,7 +28,7 @@ const connectDB = async () => {
     process.exit(1);
   }
 }
-
+app.use(cors());
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
