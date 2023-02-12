@@ -107,7 +107,8 @@ res.set({
     req.on("close", () => {
       clearInterval(intervalId);
     });
-  } catch (error) {
+  }catch (error) {
+    console.log({error})
     return res.status(500).send({error:error.message});
   }
 });
