@@ -111,7 +111,10 @@ user.password=await bcrypt.hash(user.password,8)
 }
 next()
 })
-// 
+/* The code uses the this keyword to access the User document being deleted.
+ It then uses the deleteMany() method of the Comments model to delete 
+ all comments that have a matching "OwnerId" field with the user being deleted. 
+ Finally, it calls the next() method to indicate that the middleware function has completed*/
 useschema.pre('deleteOne',{ document: true },async function(next){
   const user =  this
   // console.log({userremove:user})

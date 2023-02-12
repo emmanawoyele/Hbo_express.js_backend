@@ -139,7 +139,7 @@ console.log({usr:req.user})
   const _id = req.params.id
   const updates= Object.keys( req.body)
   try{
-    const updated= await ReadUser.findOne({_id,OwnerId:req.user._id})
+    const updated= await ReadComments.findOne({_id,OwnerId:req.user._id})
     if(!updated){
       res.status(400).send()
     }
@@ -155,15 +155,13 @@ return updated[comments]=req.body[comments]
   
   // delete a comment
 
-  router.delete('/comment/:id',auth,async(req,res)=>{
+  router.delete('/comment/:id',auth,async(req , res)=>{
     const taskId =req.params.id
     console.log({taskId})
+    console.log({owner:req.user._id})
     try{
-      // const find_User = await ReadUser.findOne({id:req.params.id,owner:req.user_id})
-      // console.log(find_User)
-      // const taskDelete = await ReadUser.deleteOne(find_User)
-      // or
-    const taskDelete = await ReadUser.findOneAndDelete({id:taskId,owner:req.user._id})
+
+    const taskDelete = await ReadComments.findOneAndDelete({_id:taskId,owner:req.user._id})
     if(!taskDelete){
         return res.status(404)
     }else{
