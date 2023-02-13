@@ -92,8 +92,6 @@ res.set({
     if (!readUsersComments) {
       return res.status(404).send("No comments found");
     }
-
-
     // Send the initial data to the client
     res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
 
