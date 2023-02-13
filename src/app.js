@@ -17,18 +17,18 @@ const useMovieWishList=require('./routers/MovieWishList')
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 //   credentials: true
 // }
+app.use(cors());
 
-
-const connectDB = async () => {
+const connectDB = async()=> {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_ENV);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const connectserver = await mongoose.connect(process.env.MONGODB_ENV);
+    console.log(`MongoDB Connected: ${connectserver .connection.host}`);
   } catch (error) {
     console.log(error);
     process.exit(1);
   }
 }
-app.use(cors());
+
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
