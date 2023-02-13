@@ -93,7 +93,7 @@ return user
 }
 
 if(!user){
- throw new Error("Check Your Uswername or Password")
+ throw new Error("Check Your Username or Password")
 }
 const isMatched = await bcrypt.compare(password,user.password)
 if(!isMatched){

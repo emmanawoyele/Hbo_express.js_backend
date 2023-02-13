@@ -46,8 +46,6 @@ console.log(req.body)
 try{
 const user =  await User.findByCrendetials(req ,req.body.password)
 const token = await user.generateToken()
-
-
   return res.status(200).send({user,token})
 }catch(e){
   console.log(e)
