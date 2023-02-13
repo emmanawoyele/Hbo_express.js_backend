@@ -1,6 +1,6 @@
 
-const mongoose = require("mongoose");
 const express = require("express")
+const mongoose = require("mongoose")
 const app= express()
 const port=process.env.PORT || 3000
 const cors = require('cors')
@@ -17,24 +17,24 @@ const useMovieWishList=require('./routers/MovieWishList')
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 //   credentials: true
 // }
+
 app.use(cors());
 
-const connectDB = async()=> {
-  try {
-    const connectserver = await mongoose.connect(process.env.MONGODB_ENV);
-    console.log(`MongoDB Connected: ${connectserver .connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
 
 app.use(express.json())
 app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
 app.use(useMovieWishList)
-
+const connectDB = async()=>{
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_ENV);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 app.get("/",(req,res)=>{
 console.log(req.query)
  

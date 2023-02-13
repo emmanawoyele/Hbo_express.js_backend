@@ -43,8 +43,6 @@ console.log(req.body)
   //  login
   router.post("/create/login",async(req ,res)=>{
     const data = req.boody
-    
-    
 try{
 const user =  await User.findByCrendetials(req ,req.body.password)
 const token = await user.generateToken()
