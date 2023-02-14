@@ -1,7 +1,7 @@
 const request = require("request")
 const shuffleArray = require('../utils/shuffleArray')
 
-const videoTrending=(key,callback)=>{
+const videoTrending=async(key,callback)=>{
   // console.log({key})
     let videoKey=[];
     const Default={
@@ -18,8 +18,8 @@ const videoTrending=(key,callback)=>{
     }
 
 
-  const video=  key.forEach((key)=>{
-videoKey.push(key.id)
+  const video= await key.forEach ((key)=>{
+     videoKey.push(key.id)
     })
 
    // Shuffle array and return 1 item
