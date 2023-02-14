@@ -1,6 +1,6 @@
 
 const express = require("express")
-const mongoose = require("mongoose")
+require('./DataBase/mongoose')
 const app= express()
 const port=process.env.PORT || 3000
 const cors = require('cors')
@@ -36,12 +36,12 @@ app.use(useMovieWishList)
 //   }
 // }
 
-mongoose.connect((process.env.MONGODB_ENV),{
-    useNewUrlParser:true,
-    useCreateIndex:true,
-    useFindAndModify:false,
-    useUnifiedTopology: true 
-})
+// mongoose.connect((process.env.MONGODB_ENV),{
+//     useNewUrlParser:true,
+//     useCreateIndex:true,
+//     useFindAndModify:false,
+//     useUnifiedTopology: true 
+// })
 
 app.get("/",(req,res)=>{
 console.log(req.query)
