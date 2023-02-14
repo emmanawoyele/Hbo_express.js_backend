@@ -26,15 +26,15 @@ app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
 app.use(useMovieWishList)
-const connectDB = async()=>{
-  try {
-    const conn = await mongoose.connect(process.env.MONGODB_ENV);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
+// const connectDB = async()=>{
+//   try {
+//     const conn = await mongoose.connect(process.env.MONGODB_ENV);
+//     console.log(`MongoDB Connected: ${conn.connection.host}`);
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// }
 app.get("/",(req,res)=>{
 console.log(req.query)
  
@@ -60,11 +60,11 @@ console.log(req.query)
  
 })
 
-connectDB().then(() => {
+// connectDB().then(() => {
   app.listen(port, () => {
     console.log(`Server listen on ${port}`)
   })
-})
+// })
 // app.listen(port,()=>{
 //     console.log(`Server listen on ${port}`)
 // })
