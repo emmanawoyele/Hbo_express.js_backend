@@ -35,7 +35,7 @@ app.use(useMovieWishList)
 //     process.exit(1);
 //   }
 // }
-const mongoose = require("mongoose")
+
 mongoose.connect((process.env.MONGODB_ENV),{
     useNewUrlParser:true,
     useCreateIndex:true,
