@@ -12,13 +12,13 @@ const useCommentsRouter=require('./routers/comments')
 const useImagesRouter=require('./routers/imageRouters')
 const useMovieWishList=require('./routers/MovieWishList')
 
-var corsOptions = {
-  origin:"https://hboback-end.herokuapp.com",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  credentials: true
-}
+// var corsOptions = {
+//   origin: '*',
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+//   credentials: true
+// }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.json())
