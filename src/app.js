@@ -1,6 +1,6 @@
 
 const express = require("express")
-require('./DataBase/mongoose')
+const mongoose = require("mongoose")
 const app= express()
 const port=process.env.PORT || 3000
 const cors = require('cors')
@@ -26,15 +26,15 @@ app.use(useCreateUserRouter)
 app.use(useCommentsRouter)
 app.use(useImagesRouter)
 app.use(useMovieWishList)
-// const connectDB = async()=>{
-//   try {
-//     const conn = await mongoose.connect(process.env.MONGODB_ENV);
-//     console.log(`MongoDB Connected: ${conn.connection.host}`);
-//   } catch (error) {
-//     console.log(error);
-//     process.exit(1);
-//   }
-// }
+const connectDB = async()=>{
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_ENV);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
 // mongoose.connect((process.env.MONGODB_ENV),{
 //     useNewUrlParser:true,
@@ -68,11 +68,11 @@ console.log(req.query)
  
 })
 
-// connectDB().then(() => {
+connectDB().then(() => {
   app.listen(port, () => {
     console.log(`Server listen on ${port}`)
   })
-// })
+})
 // app.listen(port,()=>{
 //     console.log(`Server listen on ${port}`)
 // })
