@@ -88,17 +88,17 @@ res.set({
 
   try {
     const readUsersComments = await ReadComments.find({});
+    // Send the initial data to the client
+    res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
     if (!readUsersComments) {
       return res.status(404).send("No comments found");
     }
-    // Send the initial data to the client
-    res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
-
+    
     // Set up an interval to send updates to the client
     const intervalId = setInterval(async () => {
       const updatedData = await ReadComments.find({});
       res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
-    }, 55000);
+    }, 3000);
 
     // When the client closes the connection, clear the interval
     req.on("close", () => {
