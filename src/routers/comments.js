@@ -101,6 +101,7 @@ res.set({
     }, 3000);
 
     // When the client closes the connection, clear the interval
+    clearInterval(intervalId);
     // req.on("close", () => {
     //   clearInterval(intervalId);
     // });
