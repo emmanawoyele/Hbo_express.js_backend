@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken')
 const createUsers =require('../DataBase/model/creatUser')
 const auth= async(req,res,next)=>{
+    // console.log({request:req})
     let headertoken;
 // in try catch, if there is no header with auth, use req.query coming fron the client
 // turn the query into array by using Object keys and extract the first array

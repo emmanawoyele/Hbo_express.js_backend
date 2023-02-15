@@ -11,12 +11,11 @@ var cors = require('cors')
 router.post("/comment",auth,async (req,res)=>{
  
 
-    const new_comment=new ReadComments({...req.body,
-      OwnerId:req.user._id})
-      console.log(req.body)
+    const new_comment=new ReadComments({...req.body,OwnerId:req.user._id})
+ 
     try{
       await new_comment.save();
-      console.log(new_comment)
+     
       res.status(201).send(new_comment)
     }catch(e){
   res.status(404).send("enter the correct information")
@@ -79,15 +78,19 @@ router.post("/comment",auth,async (req,res)=>{
 
 
 router.get("/comment", auth, async (req, res) => {  
+  const _Url = req.originalUrl.split('&',).slice(1)
+  const _Url_Split =_Url.toString().split('=')[1]
+    let _id = parseInt(_Url_Split)
+    console.log(_id)
+
 res.set({
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
   });
 
-
   try {
-    const readUsersComments = await ReadComments.find({});
+    const readUsersComments = await ReadComments.find().where({movieId:_id});
     // Send the initial data to the client
     res.write(`data: ${JSON.stringify(readUsersComments)}\n\n`);
     if (!readUsersComments) {
@@ -96,10 +99,9 @@ res.set({
     
     // Set up an interval to send updates to the client
     const intervalId = setInterval(async () => {
-      const updatedData = await ReadComments.find({});
+      const updatedData = await ReadComments.find().where({movieId:_id});
       res.write(`data: ${JSON.stringify(updatedData)}\n\n`);
-    }, 3000);
-
+    }, 2000);
     // When the client closes the connection, clear the interval
     
     req.on("close", () => {
@@ -117,7 +119,7 @@ res.set({
   // READ SINGLE
   router.get("/comment/:id",auth, async(req,res)=>{
     const _id = req.params.id
-console.log({usr:req.user})
+
     try{
       const readusers= await ReadComments.findOne({_id,OwnerId:req.user._id})
       if(!readusers){
@@ -156,8 +158,7 @@ return updated[comments]=req.body[comments]
 
   router.delete('/comment/:id',auth,async(req , res)=>{
     const taskId =req.params.id
-    console.log({taskId})
-    console.log({owner:req.user._id})
+  
     try{
 
     const taskDelete = await ReadComments.findOneAndDelete({_id:taskId,owner:req.user._id})

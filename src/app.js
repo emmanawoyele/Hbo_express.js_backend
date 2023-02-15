@@ -1,5 +1,6 @@
 
 const express = require("express")
+// require('./DataBase/mongoose')
 const mongoose = require("mongoose")
 const app= express()
 const port=process.env.PORT || 3000
