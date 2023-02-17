@@ -13,7 +13,15 @@ const Comments = require("../model/readComments")
   username:{
     type:String,
     required:true,
-    trim:true
+    trim:true,
+    set:(value)=>{
+      if(value === value.toLowerCase()){
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    }else{
+     return  value
+    }
+  }
+    
 },
 email:{
   type:String,
