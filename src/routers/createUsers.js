@@ -40,7 +40,8 @@ router.post("/create",async (req,res)=>{
    })
   //  login
   router.post("/create/login",async(req ,res)=>{
-    const data = req.boody
+    const data = req.body
+    console.log(data)
 try{
 const user =  await User.findByCrendetials(req ,req.body.password)
 const token = await user.generateToken()

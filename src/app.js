@@ -3,7 +3,7 @@ const express = require("express")
 // require('./DataBase/mongoose')
 const mongoose = require("mongoose")
 const app= express()
-const port=process.env.PORT || 3000
+const port=process.env.PORT || 9000
 const cors = require('cors')
 const trending_all_day =require("./utils/TrendingAll_Day")
 const videoTrending = require("./utils/videoTrending")

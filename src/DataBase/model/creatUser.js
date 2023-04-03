@@ -91,12 +91,11 @@ useschema.methods.toJSON=function(){
 // statics is use to findByCrenetials function can be accessible(for logging) A middleware
 useschema.statics.findByCrendetials=async(data,password)=>{
 
-
-let user;
+let user 
 let emailOrUsername =data.body.email;
 if(data.body.email ||data.body.username){
   user =await User.findOne({$or:[{email:emailOrUsername},{username:emailOrUsername}]})
-return user
+
 
 }
 
