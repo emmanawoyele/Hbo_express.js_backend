@@ -113,7 +113,7 @@ res.status(404)
       console.log(req.body)
       console.log(Object.values(req.body))
         const updates= Object.keys( req.body)
-        console.log({updates})
+        
         try{
 
         // const updated =await User.findByIdAndUpdate(_id,req.body,{new:true,runValidators:true})
