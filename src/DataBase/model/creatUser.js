@@ -96,7 +96,6 @@ let emailOrUsername =data.body.email;
 if(data.body.email ||data.body.username){
   user =await User.findOne({$or:[{email:emailOrUsername},{username:emailOrUsername}]})
 
-
 }
 
 if(!user){
