@@ -9,8 +9,6 @@ var cors = require('cors')
 // CREATE
 
 router.post("/comment",auth,async (req,res)=>{
- 
-
     const new_comment=new ReadComments({...req.body,OwnerId:req.user._id})
  
     try{

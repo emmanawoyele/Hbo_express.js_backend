@@ -6,8 +6,6 @@ const router= new express.Router()
 
 // add new movies
 router.post("/movie",auth,async(req, res)=>{
-
-
     try{
     const movieList=await MovielistDb.checkdoublemovies({req:req.body,OwnerId:req.user._id})
   await movieList .save();
