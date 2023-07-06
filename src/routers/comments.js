@@ -10,6 +10,7 @@ var cors = require('cors')
 
 router.post("/comment",auth,async (req,res)=>{
     const new_comment=new ReadComments({...req.body,OwnerId:req.user._id})
+    console.log(req)
  
     try{
       await new_comment.save();
@@ -155,7 +156,9 @@ return updated[comments]=req.body[comments]
   // delete a comment
 
   router.delete('/comment/:id',auth,async(req , res)=>{
+  
     const taskId =req.params.id
+    console.log(taskId)
   
     try{
 

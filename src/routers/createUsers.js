@@ -32,7 +32,12 @@ router.post("/create",async (req,res)=>{
     const token = await createNewUser.generateToken()
    res.status(201).send(createNewUser)
     }catch(e){
-     res.status(400).send(e)
+      // suggest new random  user names if name already taken
+      const suggestedUser = await User.userNameSuggestion(req.body);
+      res.status(400).send({error:"Username already taken. Please choose a different one.",
+    suggestedUser});
+    
+
     }
    
    

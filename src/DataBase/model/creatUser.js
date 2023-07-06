@@ -6,10 +6,14 @@ const Comments = require("../model/readComments")
 
 
  const useschema = new mongoose.Schema({
-  name:{
+  firstname:{
       type:String,
       trim:true
   },
+  lastname:{
+    type:String,
+    trim:true
+},
   username:{
     type:String,
     required:true,
@@ -70,12 +74,35 @@ useschema.virtual('commentsRelationship',{
 })
 // generate token
 useschema.methods.generateToken =async function(){
-  console.log({this:this})
+  
   const user =this
 const genToken = jwt.sign({_id:user._id.toString()},process.env.JWT_ENV)
 user.token=user.token.concat({tokenid:genToken})
 await user.save()
 return genToken
+}
+// generate random usernames
+useschema.statics.userNameSuggestion =async function(data){
+  const{username,firstname,lastname}=data
+  // create empty array
+  const names = []
+  let arrayOfNumber=[]
+  // push firstname and lastname into array
+  names.push(firstname ,lastname)
+  // join firstname and lastnames and .
+ const joinNames=names.join(".")
+
+ for(var i=0;i<5;i++){
+ const genRandomNumbers =Math.floor(Math.random()*100)
+ const joinNamesAndNumbers =`${username}${genRandomNumbers}`
+ const firstnameLastname= `${joinNames}${genRandomNumbers}`
+ console.log(firstnameLastname)
+ arrayOfNumber.push(joinNamesAndNumbers,firstnameLastname)
+
+ }
+
+ return arrayOfNumber
+
 }
 
 
@@ -108,6 +135,30 @@ if(!isMatched){
 
 return user
 }
+
+// useschema.statics.checkCredentialsInDatabase=async(data,password)=>{
+
+//   let user 
+ 
+//     user =await User.findOne({$or:[{username:data.username}]})
+//   console.log({checking:user})
+//     if(!user){
+//       return data  
+//     }else{
+//       throw new Error("Check Your Username or Password")
+//     }
+  
+//   // if(!user){
+//   //  throw new Error("Check Your Username or Password")
+//   // }
+ 
+//   // if(!isMatched){
+//   //   throw new Error("Unable to log in")
+//   // }
+  
+  
+//   }
+
 // Hash the User passoword before saving A middleware
 useschema.pre('save',async function(next){
 const user=this
